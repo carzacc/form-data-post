@@ -15,18 +15,35 @@ class MyApp extends StatelessWidget {
 }
 
 class StartPage extends StatelessWidget {
+  void switchScreen(str, context) =>
+    Navigator.push(context, MaterialPageRoute(
+      builder: (context) => MyHomePage(url: str)
+    ));
   @override
-  Widget build(context) =>
-    Scaffold(
+  Widget build(context) {
+    TextEditingController controller = TextEditingController();
+    return Scaffold(
       appBar: AppBar(
         title: Text('Flutter File Upload Example')
       ),
-      body: TextField(onSubmitted: (str) {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) => MyHomePage(url: str)
-        ));
-      },)
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          children: <Widget>[
+            Text("Insert the URL that will receive the Multipart POST request (including the starting http://)", style: Theme.of(context).textTheme.headline),
+            TextField(
+              controller: controller,
+              onSubmitted: (str) => switchScreen(str, context),
+            ),
+            FlatButton(
+              child: Text("Take me to the upload screen"),
+              onPressed: () => switchScreen(controller.text, context),
+            )
+          ],
+        ),
+      )
     );
+  }
 }
 
 class MyHomePage extends StatefulWidget {
@@ -42,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<String> uploadImage(filename, url) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
-    request.files.add(await http.MultipartFile.fromPath('n', filename));
+    request.files.add(await http.MultipartFile.fromPath('picture', filename));
     var res = await request.send();
     return res.reasonPhrase;
   }
