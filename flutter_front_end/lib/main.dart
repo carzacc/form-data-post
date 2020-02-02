@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
 class StartPage extends StatelessWidget {
   void switchScreen(str, context) =>
     Navigator.push(context, MaterialPageRoute(
-      builder: (context) => MyHomePage(url: str)
+      builder: (context) => UploadPage(url: str)
     ));
   @override
   Widget build(context) {
@@ -46,16 +46,16 @@ class StartPage extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.url}) : super(key: key);
+class UploadPage extends StatefulWidget {
+  UploadPage({Key key, this.url}) : super(key: key);
 
   final String url;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _UploadPageState createState() => _UploadPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _UploadPageState extends State<UploadPage> {
 
   Future<String> uploadImage(filename, url) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
