@@ -4,7 +4,7 @@
   "description": "An example back-end for a tutorial about file uploading from Flutter apps",
   "main": "index.js",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "multer": "^1.4.2"
   },
   "devDependencies": {},
